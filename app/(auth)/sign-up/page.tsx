@@ -4,6 +4,7 @@ import { getLoggedInUser } from '@/lib/actions/user.actions'
 
 const SignUp = async() => {
   
+
   return (
     <div className=''>
       <AuthForm type="sign-up" />

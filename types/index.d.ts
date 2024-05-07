@@ -17,3 +17,8 @@ declare type SignUpParams = {
   email: string;
   password: string;
 }
+
+declare type signInProps = {
+  email: string;
+  password: string;
+}

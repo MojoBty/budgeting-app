@@ -6,8 +6,24 @@ import { cookies } from "next/headers";
 import { parseStringify } from "../utils";
 
 
-export const signIn = () => {
+export const signIn = async({ email, password } : signInProps) => {
+  try {
+    const {account} = await createAdminClient()
 
+    const response = await account.createEmailPasswordSession(email, password)
+
+    cookies().set("my-custom-session", response.secret, {
+      path: "/",
+      httpOnly: true,
+      sameSite: "strict",
+      secure: true,
+    });
+
+    return parseStringify(response)
+
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 export const signUp = async(userData: SignUpParams) => {

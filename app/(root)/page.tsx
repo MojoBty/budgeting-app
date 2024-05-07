@@ -2,10 +2,14 @@ import React from 'react'
 import HeaderBox from '@/components/HeaderBox'
 import BankInfo from '@/components/BankInfo'
 import RecentTransactions from '@/components/RecentTransactions'
+import { getLoggedInUser } from '@/lib/actions/user.actions'
+import { redirect } from 'next/navigation'
 
-const Home = () => {
+const Home = async() => {
   const loggedIn = { firstName: "Mojo" }
-
+  let userInfo = await getLoggedInUser()
+  if (!userInfo) redirect('/sign-up')
+  console.log(userInfo)
   return (
     <section className="home">
       <div className='home-content'>
@@ -13,7 +17,7 @@ const Home = () => {
           <HeaderBox 
             type = "greeting"
             title = "Welcome"
-            user = {loggedIn?.firstName || 'Guest'}
+            user = {userInfo?.name || 'Guest'}
             subtext = "View and manage your transactions."
           />
         </header>
@@ -22,6 +26,7 @@ const Home = () => {
         </div>
         <div>
           <RecentTransactions />
+          
         </div>
       </div>
     </section>
